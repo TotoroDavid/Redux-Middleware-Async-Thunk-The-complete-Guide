@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { fetchPosts } from './actions'
 
 const Posts = () => {
 
     const dispatch = useDispatch()
+    const posts = useSelector((state) => state)
+    console.log(posts);
 
     useEffect(() => {
         dispatch(fetchPosts())
@@ -12,6 +14,11 @@ const Posts = () => {
 
     return (
         <div>
+            {
+                posts.map((el) => {
+                    return (<h3 key={el.id}>{el.title}</h3>)
+                })
+            }
         </div>
     )
 }
