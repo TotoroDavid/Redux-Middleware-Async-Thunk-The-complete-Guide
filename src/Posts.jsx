@@ -5,20 +5,24 @@ import { fetchPosts } from './actions'
 const Posts = () => {
 
     const dispatch = useDispatch()
-    const posts = useSelector((state) => state)
-    console.log(posts);
+    const state = useSelector((state) => state)
 
     useEffect(() => {
         dispatch(fetchPosts())
     }, [dispatch])
 
+    const renderPosts = () => {
+        if (state.loading) {
+            return <h1>loading  . . .</h1>
+        }
+        return state.items.map((el) => {
+            return <h3 key={el.id} >{el.title}</h3>
+        })
+    }
+
     return (
         <div>
-            {
-                posts.map((el) => {
-                    return (<h3 key={el.id}>{el.title}</h3>)
-                })
-            }
+            {renderPosts()}
         </div>
     )
 }
